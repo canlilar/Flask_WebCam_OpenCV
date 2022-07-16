@@ -10,7 +10,12 @@ import numpy as np
 import base64
 import io
 from imageio import imread
+# import matplotlib.pyplot as plt
+#Testing
+import matplotlib
+matplotlib.use('agg')
 import matplotlib.pyplot as plt
+import os
 
 app = Flask(__name__)
 app.logger.addHandler(logging.StreamHandler(stdout))
@@ -70,4 +75,5 @@ def video_feed():
 
 
 if __name__ == '__main__':
-    socketio.run(app)
+    # socketio.run(app)
+    app.run(debug=True, host="0.0.0.0", port=int(os.environ.get("PORT", 8080)))
