@@ -1,18 +1,13 @@
 
 ### To deploy locally
 ```
-conda create -n flask-webcam-opencv-env python=2.7.11
+conda create -n flask-webcam-opencv-env python=3.8
 conda activate flask-webcam-opencv-env
-pip install -r requirements.txt
-pip install pyopenssl
-openssl req -x509 -newkey rsa:4096 -nodes -out cert.pem -keyout key.pem -days 365
-```
-The securtiy certificate you created above may take some time to be validated by a third party. 
-Wait a day or two then try to launch the app like this:
-```
+pip install -r requirements38.txt
 python app_local.py
 ```
 You'll then be able to access the app here: https://0.0.0.0:8080/
+
 **Trouble shooting:**
 - if you recieve the error:
 ```
