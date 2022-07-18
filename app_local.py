@@ -25,29 +25,29 @@ socketio = SocketIO(app)
 camera = Camera(Makeup_artist())
 
 
-@socketio.on('input image', namespace='/test')
-def test_message(input):
-    input = input.split(",")[1]
-    camera.enqueue_input(input)
-    image_data = input # Do your magical Image processing here!!
-    #image_data = image_data.decode("utf-8")
+# @socketio.on('input image', namespace='/test')
+# def test_message(input):
+#     input = input.split(",")[1]
+#     camera.enqueue_input(input)
+#     image_data = input # Do your magical Image processing here!!
+#     #image_data = image_data.decode("utf-8")
 
-    img = imread(io.BytesIO(base64.b64decode(image_data)))
-    cv2_img = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
-    cv2.imwrite("reconstructed.jpg", cv2_img)
-    retval, buffer = cv2.imencode('.jpg', cv2_img)
-    b = base64.b64encode(buffer)
-    b = b.decode()
-    image_data = "data:image/jpeg;base64," + b
+#     img = imread(io.BytesIO(base64.b64decode(image_data)))
+#     cv2_img = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
+#     cv2.imwrite("reconstructed.jpg", cv2_img)
+#     retval, buffer = cv2.imencode('.jpg', cv2_img)
+#     b = base64.b64encode(buffer)
+#     b = b.decode()
+#     image_data = "data:image/jpeg;base64," + b
 
-    print("OUTPUT " + image_data)
-    emit('out-image-event', {'image_data': image_data}, namespace='/test')
-    #camera.enqueue_input(base64_to_pil_image(input))
+#     print("OUTPUT " + image_data)
+#     emit('out-image-event', {'image_data': image_data}, namespace='/test')
+#     #camera.enqueue_input(base64_to_pil_image(input))
 
 
-@socketio.on('connect', namespace='/test')
-def test_connect():
-    app.logger.info("client connected")
+# @socketio.on('connect', namespace='/test')
+# def test_connect():
+#     app.logger.info("client connected")
 
 
 @app.route('/')
@@ -75,5 +75,6 @@ def video_feed():
 
 
 if __name__ == '__main__':
-    # socketio.run(app)
-    app.run(debug=True, host="0.0.0.0", threaded=True, port=int(os.environ.get("PORT", 8080)))
+    socketio.run(app)
+    # app.run(debug=True, host="0.0.0.0", ssl_context=('cert.pem', 'key.pem'),port=int(os.environ.get("PORT", 8080)))
+    # app.run(debug=True, host="0.0.0.0",port=int(os.environ.get("PORT", 8080)))
