@@ -7,7 +7,8 @@ COPY . /app/
 
 RUN wget https://bootstrap.pypa.io/pip/2.7/get-pip.py
 RUN python2 get-pip.py
-RUN pip2 install --upgrade setuptools
+RUN pip2 install --upgrade setuptools==44.1.1
+# RUN pip2 install --upgrade setuptools
 # RUN apt-get install python3-tk
 # RUN pip2 install --upgrade pip
 # RUN apt-get install cmake -y
