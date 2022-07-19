@@ -6,6 +6,8 @@ RUN mkdir /app
 WORKDIR /app
 COPY . /app/
 
+RUN apt-get update
+RUN apt-get install ffmpeg libsm6 libxext6  -y
 # RUN wget https://bootstrap.pypa.io/pip/2.7/get-pip.py
 # RUN python2 get-pip.py
 # RUN pip2 install --upgrade setuptools==44.1.1
