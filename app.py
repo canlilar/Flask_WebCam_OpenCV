@@ -21,7 +21,10 @@ app = Flask(__name__)
 app.logger.addHandler(logging.StreamHandler(stdout))
 app.config['SECRET_KEY'] = 'secret!'
 app.config['DEBUG'] = True
-socketio = SocketIO(app)
+##### EC Change 7/19/2022 - Security update ########
+# socketio = SocketIO(app)
+socketio = SocketIO(app,cors_allowed_origins="*")
+#######################
 camera = Camera(Makeup_artist())
 
 
@@ -53,7 +56,8 @@ def test_connect():
 @app.route('/')
 def index():
     """Video streaming home page."""
-    return render_template('index.html')
+    # return render_template('index.html')
+    return render_template('full-page-carousel.html')
 
 
 def gen():
