@@ -84,11 +84,11 @@ def test_connect():
     app.logger.info("client connected")
     print("client connected: test2")
 
-@app.route('/visionapi')
+@app.route('/teachable-machine')
 def visionapifunc():
-    """Google Vision Intelligence API test"""
+    """Teachable Machine model test"""
     # return render_template('index.html')
-    return render_template('full-page-carousel.html')
+    return render_template('teachable-machine-test.html')
 ######################################################
 
 
