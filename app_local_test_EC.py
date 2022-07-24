@@ -1,7 +1,7 @@
 from sys import stdout
 from makeup_artist import Makeup_artist
 import logging
-from flask import Flask, render_template, Response
+from flask import Flask, render_template, Response, request, redirect
 from flask_socketio import SocketIO, emit
 from camera import Camera
 from utils import base64_to_pil_image, pil_image_to_base64
@@ -11,11 +11,13 @@ import base64
 import io
 from imageio import imread
 # import matplotlib.pyplot as plt
-#Testing
 import matplotlib
 matplotlib.use('agg')
 import matplotlib.pyplot as plt
 import os
+#Testing EC ####
+import json
+#############
 
 app = Flask(__name__)
 app.logger.addHandler(logging.StreamHandler(stdout))
@@ -79,16 +81,26 @@ def video_feed():
     return Response(gen(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 ########## EC additional page for testing #############
-@socketio.on('connect', namespace='/test2')
-def test_connect():
-    app.logger.info("client connected")
-    print("client connected: test2")
-
 @app.route('/teachable-machine')
-def visionapifunc():
+def teachableMachine():
     """Teachable Machine model test"""
     # return render_template('index.html')
     return render_template('teachable-machine-test.html')
+
+@app.route('/predictClass/<string:classPrediction2>', methods=['POST'])
+def predictClass(classPrediction2):
+    """Teachable Machine model test"""
+    print("The prediction is: ..................") # This print function works
+    classPrediction2=str(classPrediction2).replace('"', '') # strip out the quote marks
+    # print(classPrediction2) # See what it is
+    if classPrediction2=="armsInVshape":
+        # TODO
+        print("Do something like change the background")
+    # elif classPrediction2=="baseClass":
+    #     print("Base Class: do nothing")
+    # return render_template('index.html')
+    # return render_template('teachable-machine-test.html')
+    return('/teachable-machine')
 ######################################################
 
 

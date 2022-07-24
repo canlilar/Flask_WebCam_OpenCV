@@ -77,6 +77,29 @@ def video_feed():
     """Video streaming route. Put this in the src attribute of an img tag."""
     return Response(gen(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
+########## EC additional page for testing #############
+@app.route('/teachable-machine')
+def teachableMachine():
+    """Teachable Machine model test"""
+    # return render_template('index.html')
+    return render_template('teachable-machine-test.html')
+
+@app.route('/predictClass/<string:classPrediction2>', methods=['POST'])
+def predictClass(classPrediction2):
+    """Teachable Machine model test"""
+    print("The prediction is: ..................") # This print function works
+    classPrediction2=str(classPrediction2).replace('"', '') # strip out the quote marks
+    # print(classPrediction2) # See what it is
+    if classPrediction2=="armsInVshape":
+        # TODO
+        print("Do something like change the background")
+    # elif classPrediction2=="baseClass":
+    #     print("Base Class: do nothing")
+    # return render_template('index.html')
+    # return render_template('teachable-machine-test.html')
+    return('/teachable-machine')
+######################################################
+
 
 if __name__ == '__main__':
     # socketio.run(app)
