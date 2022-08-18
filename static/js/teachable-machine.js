@@ -16,16 +16,27 @@ async function init() {
     maxPredictions = model.getTotalClasses();
 
     // Convenience function to setup a webcam
-    const size = 800;
+    // const size = 800;gi
+    width = window.innerWidth;
+    height = window.innerHeight;
     const flip = true; // whether to flip the webcam
-    webcam = new tmPose.Webcam(size, size, flip); // width, height, flip
+    // webcam = new tmPose.Webcam(size, size, flip); // width, height, flip
+    webcam = new tmPose.Webcam(width, height, flip); // width, height, flip
     await webcam.setup(); // request access to the webcam
     await webcam.play();
     window.requestAnimationFrame(loop);
 
+    ///// TEST EC - fetch webcam //////
+    // webcam = document.getElementById("videoElement1")
+    //// END TEST //////
+
     // append/get elements to the DOM
-    const canvas = document.getElementById("canvas");
-    canvas.width = size; canvas.height = size;
+    // const canvas = document.getElementById("canvas");
+    const canvas = document.getElementById("videoElement1");
+    // canvas.width = size; 
+    // canvas.height = size;
+    canvas.width = width; 
+    canvas.height = height;
     ctx = canvas.getContext("2d");
     labelContainer = document.getElementById("label-container");
     for (let i = 0; i < maxPredictions; i++) { // and class labels

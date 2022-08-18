@@ -1,17 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<!-- Teachable machine test -->
-<div><canvas id="canvas"></canvas></div>
-<div id="label-container"></div>
-
-<!-- End teachable machine test -->
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <meta http-equiv="x-ua-compatible" content="ie=edge" />
-  <title>AR Magic World App</title>
+  <title>Magic World App</title>
   <!-- MDB icon -->
   <link rel="icon" href="static/img/mdb-favicon.ico" type="image/x-icon" />
   <!-- Font Awesome -->
@@ -205,14 +199,16 @@
                 id="webcam" 
                 style="min-width: 100%; min-height: 100%">
             </video> -->
-            <video 
+            <!-- <video 
               style="min-width: 100%; min-height: 100%"
               playsinline 
               autoplay="true" 
               id="videoElement1"
               muted
               >
-            </video>
+            </video> -->
+            <div><canvas id="videoElement1"></canvas></div>
+            <div id="label-container"></div>
           <!-- <video
                 style="min-width: 100%; min-height: 100%"
                 playsinline
@@ -226,12 +222,12 @@
                     type="video/mp4"
                     />
           </video> -->
-          <!-- <div class="mask" style="background-color: rgba(0, 0, 0, 0.6)">
+          <div class="mask" style="background-color: rgba(0, 0, 0, 0.6)">
             <div
                 class="d-flex justify-content-center align-items-center h-100"
                 >
               <div class="text-white text-center">
-                <h1 class="mb-3">Hello World!</h1>
+                <!-- <h1 class="mb-3">Hello World!</h1> -->
                 <h5 class="mb-4">
                   Click the button below to get started!
                 </h5>
@@ -241,20 +237,18 @@
                   rel="nofollow"
                   target="_blank"
                   id="startPredicting" 
-                  onclick="startPredicting()" 
-                  >Access Webcam</a
-                  >
-                <a
+                  onclick="init()" 
+                  >Start Super Hero Fantasy!</a>
+                <!-- <a
                   class="btn btn-outline-light btn-lg m-2"
                   id="stopPredicting"
                   onclick="stopPredicting()"
                   target="_blank"
                   role="button"
-                  >Turn Webcam Off</a
-                  >
+                  >Turn Webcam Off</a> -->
               </div>
             </div>
-          </div> -->
+          </div>
         </div>
 
         <!-- Single item -->
