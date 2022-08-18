@@ -56,19 +56,20 @@ def test_connect():
     print("client connected: test")
 
 
+############# EC change 18AUG22: integration of teachable machine with main page ########
 # @app.route('/')
 # def index():
 #     """Video streaming home page."""
 #     # return render_template('index.html')
 #     return render_template('full-page-carousel.html')
 
-######## TESTing integration of teachable machine with main page ########
 @app.route('/')
 def index():
     """Video streaming home page."""
     # return render_template('index.html')
     return render_template('full-page-carousel.html')
 
+# Get predictions from teachable machine using POST method
 @app.route('/predictClass/<string:classPrediction2>', methods=['POST'])
 def predictClass(classPrediction2):
     """Teachable Machine model test"""
@@ -83,7 +84,7 @@ def predictClass(classPrediction2):
     # return render_template('index.html')
     # return render_template('teachable-machine-test.html')
     return('/')
-############### END TEST ################
+############### END EC 18AUG22 Change ################
 
 
 def gen():

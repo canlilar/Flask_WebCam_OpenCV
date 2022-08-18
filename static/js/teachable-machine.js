@@ -16,8 +16,8 @@ async function init() {
     maxPredictions = model.getTotalClasses();
 
     // Convenience function to setup a webcam
-    // const size = 800;gi
-    width = window.innerWidth;
+    // const size = 800;
+    width = window.innerWidth; // set window size automatically to users full width and height
     height = window.innerHeight;
     const flip = true; // whether to flip the webcam
     // webcam = new tmPose.Webcam(size, size, flip); // width, height, flip
@@ -32,7 +32,7 @@ async function init() {
 
     // append/get elements to the DOM
     // const canvas = document.getElementById("canvas");
-    const canvas = document.getElementById("videoElement1");
+    const canvas = document.getElementById("videoElement1"); // Change by EC to get the video element instead of canvas element
     // canvas.width = size; 
     // canvas.height = size;
     canvas.width = width; 
