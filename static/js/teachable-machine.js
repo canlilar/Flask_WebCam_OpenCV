@@ -16,9 +16,9 @@ async function init() {
     maxPredictions = model.getTotalClasses();
 
     // Convenience function to setup a webcam
-    // const size = 800;
-    width = window.innerWidth; // set window size automatically to users full width and height
-    height = window.innerHeight;
+    // const size = 8000;
+    const width = window.innerWidth; // set window size automatically to users full width and height
+    const height = window.innerHeight;
     const flip = true; // whether to flip the webcam
     // webcam = new tmPose.Webcam(size, size, flip); // width, height, flip
     webcam = new tmPose.Webcam(width, height, flip); // width, height, flip

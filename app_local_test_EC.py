@@ -15,8 +15,9 @@ import matplotlib
 matplotlib.use('agg')
 import matplotlib.pyplot as plt
 import os
-#Testing EC ####
-import json
+#### EC Change 19AUG22 to resolve the ValueError('Too many packets in payload') ####
+from engineio.payload import Payload
+Payload.max_decode_packets = 500
 #############
 
 app = Flask(__name__)
@@ -68,6 +69,7 @@ def index():
     """Video streaming home page."""
     # return render_template('index.html')
     return render_template('full-page-carousel.html')
+    # return render_template('full-page-carousel-legacy-1.html')
 
 # Get predictions from teachable machine using POST method
 @app.route('/predictClass/<string:classPrediction2>', methods=['POST'])
@@ -94,7 +96,7 @@ def gen():
     while True:
         frame = camera.get_frame() #pil_image_to_base64(camera.get_frame())
 
-        print(type(frame))
+        print("Frame type!!!!!:",type(frame))
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
 
@@ -105,26 +107,26 @@ def video_feed():
     return Response(gen(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 ########## EC additional page for testing #############
-# @app.route('/teachable-machine')
-# def teachableMachine():
-#     """Teachable Machine model test"""
-#     # return render_template('index.html')
-#     return render_template('teachable-machine-test.html')
+@app.route('/teachable-machine')
+def teachableMachine():
+    """Teachable Machine model test"""
+    # return render_template('index.html')
+    return render_template('teachable-machine-test.html')
 
-# @app.route('/predictClass/<string:classPrediction2>', methods=['POST'])
-# def predictClass(classPrediction2):
-#     """Teachable Machine model test"""
-#     # print("The prediction is: ..................") # This print function works
-#     classPrediction2=str(classPrediction2).replace('"', '') # strip out the quote marks
-#     # print(classPrediction2) # See what it is
-#     # if classPrediction2=="armsInVshape":
-#         # TODO
-#         # print("Do something like change the background")
-#     # elif classPrediction2=="baseClass":
-#     #     print("Base Class: do nothing")
-#     # return render_template('index.html')
-#     # return render_template('teachable-machine-test.html')
-#     return('/teachable-machine')
+@app.route('/predictClass2/<string:classPrediction2>', methods=['POST'])
+def predictClass2(classPrediction2):
+    """Teachable Machine model test"""
+    # print("The prediction is: ..................") # This print function works
+    classPrediction2=str(classPrediction2).replace('"', '') # strip out the quote marks
+    # print(classPrediction2) # See what it is
+    # if classPrediction2=="armsInVshape":
+        # TODO
+        # print("Do something like change the background")
+    # elif classPrediction2=="baseClass":
+    #     print("Base Class: do nothing")
+    # return render_template('index.html')
+    # return render_template('teachable-machine-test.html')
+    return('/teachable-machine')
 ######################################################
 
 
