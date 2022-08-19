@@ -53,11 +53,35 @@ def test_connect():
     app.logger.info("client connected")
 
 
+############# EC change 18AUG22: integration of teachable machine with main page ########
+# @app.route('/')
+# def index():
+#     """Video streaming home page."""
+#     # return render_template('index.html')
+#     return render_template('full-page-carousel.html')
+
 @app.route('/')
 def index():
     """Video streaming home page."""
     # return render_template('index.html')
     return render_template('full-page-carousel.html')
+
+# Get predictions from teachable machine using POST method
+@app.route('/predictClass/<string:classPrediction2>', methods=['POST'])
+def predictClass(classPrediction2):
+    """Teachable Machine model test"""
+    # print("The prediction is: ..................") # This print function works
+    classPrediction2=str(classPrediction2).replace('"', '') # strip out the quote marks
+    # print(classPrediction2) # See what it is
+    # if classPrediction2=="armsInVshape":
+        # TODO
+        # print("Do something like change the background")
+    # elif classPrediction2=="baseClass":
+    #     print("Base Class: do nothing")
+    # return render_template('index.html')
+    # return render_template('teachable-machine-test.html')
+    return('/')
+############### END EC 18AUG22 Change ################
 
 
 def gen():
