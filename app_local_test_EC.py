@@ -30,6 +30,14 @@ socketio = SocketIO(app,cors_allowed_origins="*")
 #######################
 camera = Camera(Makeup_artist())
 
+def faceMask(image):
+    '''
+    Function to take it the image from the webam and add a facemask based on their hand signals
+    '''
+    input_img = image
+    image_w_mask = input_img #TODO: insert media pipe code here
+
+    return image, image_w_mask
 
 @socketio.on('input image', namespace='/test')
 def test_message(input):
@@ -39,14 +47,19 @@ def test_message(input):
     #image_data = image_data.decode("utf-8")
 
     img = imread(io.BytesIO(base64.b64decode(image_data)))
+    ########### Change by EC #############
+    # cv2_img = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
     cv2_img = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
+    # cv2_img, _ = faceMask(image=cv2_img)
+    ############################################    
     cv2.imwrite("reconstructed.jpg", cv2_img)
     retval, buffer = cv2.imencode('.jpg', cv2_img)
     b = base64.b64encode(buffer)
     b = b.decode()
     image_data = "data:image/jpeg;base64," + b
 
-    print("OUTPUT " + image_data)
+    # print("OUTPUT " + image_data)
+    print("We got the image!")
     emit('out-image-event', {'image_data': image_data}, namespace='/test')
     #camera.enqueue_input(base64_to_pil_image(input))
 
@@ -96,10 +109,21 @@ def gen():
     while True:
         frame = camera.get_frame() #pil_image_to_base64(camera.get_frame())
 
-        print("Frame type!!!!!:",type(frame))
-        yield (b'--frame\r\n'
-               b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+        # EC TEST to get a fram and save it ####
+        img = imread(io.BytesIO(base64.b64decode(frame)))
+        cv2_img = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
+        # cv2_img, _ = faceMask(image=cv2_img)
+        cv2.imwrite("reconstructed2.jpg", cv2_img)
+        print("I got the frame")
+        # ################         
 
+        print("Frame type!!!!!:",type(frame))
+        ###### Test my EC ##############
+        # yield (b'--frame\r\n'
+        #        b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+        yield (b'--cv2_img\r\n'
+               b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+        #################################
 
 @app.route('/video_feed')
 def video_feed():

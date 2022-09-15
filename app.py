@@ -43,7 +43,8 @@ def test_message(input):
     b = b.decode()
     image_data = "data:image/jpeg;base64," + b
 
-    print("OUTPUT " + image_data)
+    # print("OUTPUT " + image_data)
+    print("We got the image!")
     emit('out-image-event', {'image_data': image_data}, namespace='/test')
     #camera.enqueue_input(base64_to_pil_image(input))
 
