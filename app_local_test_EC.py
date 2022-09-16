@@ -84,6 +84,13 @@ def index():
     return render_template('full-page-carousel.html')
     # return render_template('full-page-carousel-legacy-1.html')
 
+########## TESTING #############
+@app.route('/media-pipe-test')
+def faskMaskPage():
+    """TESTing facemask page from Youtube video"""
+    return render_template('media-pipe-test.html')
+###############################
+
 # Get predictions from teachable machine using POST method
 @app.route('/predictClass/<string:classPrediction2>', methods=['POST'])
 def predictClass(classPrediction2):
