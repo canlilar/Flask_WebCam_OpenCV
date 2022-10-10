@@ -8,9 +8,16 @@
   <script src="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils/control_utils.js" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/face_mesh.js" crossorigin="anonymous"></script>
-  <script type="module" src="static/js/media-pipe.js"></script>
-  <!-- <script type="module" src="static/js/reactive-facemesh.js"></script> -->
-  <script type="text/javascript" src="static/js/teachable-machine.js"></script>
+
+  <!-- <script type="module" src="static/js/media-pipe.js"></script> -->
+  <script type="module" src="static/js/reactive-facemesh.js"></script>
+  <!-- <script type="module" src="{{ url_for('static',filename='js/reactive-facemesh.js') }}"></script> -->
+  <!-- <script type="text/javascript" src="static/js/reactive-facemesh.js"></script> -->
+  <!-- <script type="text/javascript" src="static/js/teachable-machine.js"></script> -->
+  <!-- <script type="text/javascript" src="static/js/teachable-machine-v2.js"></script> -->
+  <!-- <script type="module" src="static/js/teachable-machine-v2.js"></script> -->
+  <!-- <script src="{{ url_for('static', filename='js/teachable-machine-v2.js') }}"></script> -->
+  <!-- <script type="module" src="static/js/orchestrator.js"></script> -->
 </head>
 
 <body>
@@ -18,8 +25,6 @@
     <button type="button" onclick="init()">Start</button>
     <div><canvas id="canvas"></canvas></div>
     <div id="label-container"></div>
-    
-
 
     <!-- TEST -->
     <p id="test">Nothing</p>

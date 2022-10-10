@@ -33,7 +33,7 @@ faceMesh.setOptions({
   minDetectionConfidence: 0.5,
   minTrackingConfidence: 0.5
 });
-faceMesh.onResults(onResults);
+// faceMesh.onResults(onResults);
 
 const camera = new Camera(videoElement, {
   onFrame: async () => {
@@ -43,3 +43,6 @@ const camera = new Camera(videoElement, {
   height: 720
 });
 camera.start();
+
+// export {sayHi, sayBye}; // a list of exported variables
+// export {camera, faceMesh, onResults, videoElement, canvasElement, canvasCtx}

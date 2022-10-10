@@ -1,3 +1,5 @@
+// This one doesn't show the teachable machine canvas at all
+
 // More API functions here:
 // https://github.com/googlecreativelab/teachablemachine-community/tree/master/libraries/pose
 
@@ -51,7 +53,9 @@ const camera = new Camera(videoElement, {
 });
 camera.start();
 
-//  Teachable Machine
+
+
+// //  Teachable Machine
 async function init() {
     const modelURL = URL + "model.json";
     const metadataURL = URL + "metadata.json";
@@ -64,7 +68,9 @@ async function init() {
 
     // Convenience function to setup a webcam
     // const size = 8000;
-    const width = 1280; // set window size automatically to users full width and height
+    // const width = window.innerWidth; // set window size automatically to users full width and height
+    // const height = window.innerHeight;
+    const width = 1280;
     const height = 720;
     const flip = true; // whether to flip the webcam
     // webcam = new tmPose.Webcam(size, size, flip); // width, height, flip
@@ -79,13 +85,14 @@ async function init() {
 
     // append/get elements to the DOM
     const canvas = document.getElementById("canvas");
-    // const canvas = document.getElementsByClassName("output_canvas"); // Change by EC to get the video element instead of canvas element
+    // const canvas = document.getElementById("videoElement1"); // Change by EC to get the video element instead of canvas element
     // canvas.width = size; 
     // canvas.height = size;
     canvas.width = width; 
     canvas.height = height;
-    // ctx = canvas.getContext("2d");
+    ctx = canvas.getContext("2d");
     labelContainer = document.getElementById("label-container");
+
     for (let i = 0; i < maxPredictions; i++) { // and class labels
         labelContainer.appendChild(document.createElement("div"));
     }
@@ -110,6 +117,7 @@ async function predict() {
         labelContainer.childNodes[i].innerHTML = classPrediction;
 
         // EC Addition to send data to backend
+        // TODO: only send post back if prob reaches certian threshold and also nto if it's just the base class 
         const classPrediction2 = prediction[i].className;
         console.log("Here is the class prediction:")
         console.log(classPrediction2)
@@ -117,6 +125,16 @@ async function predict() {
         request.open('POST', `predictClass/${JSON.stringify(classPrediction2)}`)
         request.send();
         // END Addition
+
+        // Test to see if I can produce something on front if certian value is true
+        if  (prediction[i].className.includes("arms") && prediction[i].probability > .98) {
+            document.getElementById("test").innerHTML = "It's Arms in a V!";
+        }
+            // document.getElementById("test").innerHTML = classPrediction2;
+                // Test to see if I can produce something on front if certian value is true
+        if  (prediction[i].className.includes("base") && prediction[i].probability > .98) {
+            document.getElementById("test").innerHTML = "Base Class!!!!";
+        }
     }
 
     // finally draw the poses
@@ -125,12 +143,12 @@ async function predict() {
 
 function drawPose(pose) {
     if (webcam.canvas) {
-        canvasCtx.drawImage(webcam.canvas, 0, 0);
+        ctx.drawImage(webcam.canvas, 0, 0);
         // draw the keypoints and skeleton
         if (pose) {
             const minPartConfidence = 0.5;
-            tmPose.drawKeypoints(pose.keypoints, minPartConfidence, canvasCtx);
-            tmPose.drawSkeleton(pose.keypoints, minPartConfidence, canvasCtx);
+            tmPose.drawKeypoints(pose.keypoints, minPartConfidence, ctx);
+            tmPose.drawSkeleton(pose.keypoints, minPartConfidence, ctx);
         }
     }
 }

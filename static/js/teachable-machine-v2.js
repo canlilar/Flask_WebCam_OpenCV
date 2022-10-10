@@ -1,11 +1,15 @@
 // More API functions here:
 // https://github.com/googlecreativelab/teachablemachine-community/tree/master/libraries/pose
 
+//import dependencies
+import * as mediapipe from "./media-pipe" 
+
 // the link to your model provided by Teachable Machine export panel
 const URL = "https://teachablemachine.withgoogle.com/models/CvlC5wCam/"; //"./my_model/";
 let model, webcam, ctx, labelContainer, maxPredictions;
 
 async function init() {
+// async function init() {
     const modelURL = URL + "model.json";
     const metadataURL = URL + "metadata.json";
 
@@ -75,9 +79,10 @@ async function predict() {
         request.send();
         // END Addition
 
-        // Test to see if I can produce something on front if certian value is true
+        // produce something on front if certian value is true
         if  (prediction[i].className.includes("arms") && prediction[i].probability > .98) {
-            document.getElementById("test").innerHTML = "It's Arms in a V!";
+            document.getElementById("test").innerHTML = "It's Arms in a V!"; //this is just for testing
+            // mediapipe.faceMesh.onResults(onResults);
         }
             // document.getElementById("test").innerHTML = classPrediction2;
                 // Test to see if I can produce something on front if certian value is true

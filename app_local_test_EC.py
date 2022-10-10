@@ -30,14 +30,14 @@ socketio = SocketIO(app,cors_allowed_origins="*")
 #######################
 camera = Camera(Makeup_artist())
 
-def faceMask(image):
-    '''
-    Function to take it the image from the webam and add a facemask based on their hand signals
-    '''
-    input_img = image
-    image_w_mask = input_img #TODO: insert media pipe code here
+# def faceMask(image):
+#     '''
+#     Function to take it the image from the webam and add a facemask based on their hand signals
+#     '''
+#     input_img = image
+#     image_w_mask = input_img #TODO: insert media pipe code here
 
-    return image, image_w_mask
+#     return image, image_w_mask
 
 @socketio.on('input image', namespace='/test')
 def test_message(input):
@@ -92,20 +92,20 @@ def faskMaskPage():
 ###############################
 
 # Get predictions from teachable machine using POST method
-@app.route('/predictClass/<string:classPrediction2>', methods=['POST'])
-def predictClass(classPrediction2):
-    """Teachable Machine model test"""
-    # print("The prediction is: ..................") # This print function works
-    classPrediction2=str(classPrediction2).replace('"', '') # strip out the quote marks
-    # print(classPrediction2) # See what it is
-    # if classPrediction2=="armsInVshape":
-        # TODO
-        # print("Do something like change the background")
-    # elif classPrediction2=="baseClass":
-    #     print("Base Class: do nothing")
-    # return render_template('index.html')
-    # return render_template('teachable-machine-test.html')
-    return('/')
+# @app.route('/predictClass/<string:classPrediction2>', methods=['POST'])
+# def predictClass(classPrediction2):
+#     """Teachable Machine model test"""
+#     # print("The prediction is: ..................") # This print function works
+#     classPrediction2=str(classPrediction2).replace('"', '') # strip out the quote marks
+#     # print(classPrediction2) # See what it is
+#     # if classPrediction2=="armsInVshape":
+#         # TODO
+#         # print("Do something like change the background")
+#     # elif classPrediction2=="baseClass":
+#     #     print("Base Class: do nothing")
+#     # return render_template('index.html')
+#     # return render_template('teachable-machine-test.html')
+#     return('/')
 ############### END EC 18AUG22 Change ################
 
 
