@@ -5,7 +5,9 @@
 
 // the link to your model provided by Teachable Machine export panel
 const URL = "https://teachablemachine.withgoogle.com/models/CvlC5wCam/"; //"./my_model/";
+// Globally accessible variables
 let model, webcam, ctx, labelContainer, maxPredictions;
+// let model, webcam, ctx, labelContainer, maxPredictions, init; //throws error that init is already define on line 61
 
 const videoElement = document.getElementsByClassName('input_video')[0];
 const canvasElement = document.getElementsByClassName('output_canvas')[0];
