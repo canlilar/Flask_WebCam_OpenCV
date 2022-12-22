@@ -12,13 +12,16 @@ let model, webcam, ctx, labelContainer, maxPredictions;
 const videoElement = document.getElementsByClassName('input_video')[0];
 const canvasElement = document.getElementsByClassName('output_canvas')[0];
 const canvasCtx = canvasElement.getContext('2d');
+let armsInAV = false;
+let poseType = "arms"
 
 function onResults(results) {
   canvasCtx.save();
   canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
   canvasCtx.drawImage(
       results.image, 0, 0, canvasElement.width, canvasElement.height);
-  if (results.multiFaceLandmarks) {
+      
+  if (results.multiFaceLandmarks && armsInAV) {
     for (const landmarks of results.multiFaceLandmarks) {
       drawConnectors(canvasCtx, landmarks, FACEMESH_TESSELATION,
                      {color: '#C0C0C070', lineWidth: 1});
@@ -45,6 +48,7 @@ faceMesh.setOptions({
   minTrackingConfidence: 0.5
 });
 faceMesh.onResults(onResults);
+
 
 const camera = new Camera(videoElement, {
   onFrame: async () => {
@@ -100,6 +104,9 @@ async function init() {
     }
 }
 
+let btn = document.getElementById("mp-start-btn")
+btn.addEventListener("click", init)
+
 async function loop(timestamp) {
     webcam.update(); // update the webcam frame
     await predict();
@@ -128,14 +135,18 @@ async function predict() {
         request.send();
         // END Addition
 
+        let isInPose = (prediction[i].className.includes(poseType) && prediction[i].probability > .98)
+        armsInAV = isInPose;
+        
         // Test to see if I can produce something on front if certian value is true
-        if  (prediction[i].className.includes("arms") && prediction[i].probability > .98) {
+        if  (isInPose) {
             document.getElementById("test").innerHTML = "It's Arms in a V!";
         }
+        
             // document.getElementById("test").innerHTML = classPrediction2;
                 // Test to see if I can produce something on front if certian value is true
         if  (prediction[i].className.includes("base") && prediction[i].probability > .98) {
-            document.getElementById("test").innerHTML = "Base Class!!!!";
+            //document.getElementById("test").innerHTML = "Base Class!!!!";
         }
     }
 
