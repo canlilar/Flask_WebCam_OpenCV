@@ -65,7 +65,8 @@ def test_connect():
 def index():
     """Video streaming home page."""
     # return render_template('index.html')
-    return render_template('full-page-carousel.html')
+#     return render_template('full-page-carousel.html')
+    return render_template('media-pipe-test.html')
 
 # Get predictions from teachable machine using POST method
 @app.route('/predictClass/<string:classPrediction2>', methods=['POST'])
