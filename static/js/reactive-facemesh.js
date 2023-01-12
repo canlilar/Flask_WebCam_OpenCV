@@ -97,8 +97,8 @@ async function init() {
     canvas.width = width; 
     canvas.height = height;
     ctx = canvas.getContext("2d");
-    labelContainer = document.getElementById("label-container");
 
+    labelContainer = document.getElementById("label-container");
     for (let i = 0; i < maxPredictions; i++) { // and class labels
         labelContainer.appendChild(document.createElement("div"));
     }
@@ -126,13 +126,12 @@ async function predict() {
         labelContainer.childNodes[i].innerHTML = classPrediction;
 
         // EC Addition to send data to backend
-        // TODO: only send post back if prob reaches certian threshold and also nto if it's just the base class 
-        const classPrediction2 = prediction[i].className;
-        console.log("Here is the class prediction:")
-        console.log(classPrediction2)
-        const request = new XMLHttpRequest()
-        request.open('POST', `predictClass/${JSON.stringify(classPrediction2)}`)
-        request.send();
+        // const classPrediction2 = prediction[i].className;
+        // console.log("Here is the class prediction:")
+        // console.log(classPrediction2)
+        // const request = new XMLHttpRequest()
+        // request.open('POST', `predictClass/${JSON.stringify(classPrediction2)}`)
+        // request.send();
         // END Addition
 
         let isInPose = (prediction[i].className.includes(poseType) && prediction[i].probability > .98)
@@ -151,17 +150,17 @@ async function predict() {
     }
 
     // finally draw the poses
-    drawPose(pose);
+    // drawPose(pose);
 }
 
-function drawPose(pose) {
-    if (webcam.canvas) {
-        ctx.drawImage(webcam.canvas, 0, 0);
-        // draw the keypoints and skeleton
-        if (pose) {
-            const minPartConfidence = 0.5;
-            tmPose.drawKeypoints(pose.keypoints, minPartConfidence, ctx);
-            tmPose.drawSkeleton(pose.keypoints, minPartConfidence, ctx);
-        }
-    }
-}
+// function drawPose(pose) {
+//     if (webcam.canvas) {
+//         ctx.drawImage(webcam.canvas, 0, 0);
+//         // draw the keypoints and skeleton
+//         if (pose) {
+//             const minPartConfidence = 0.5;
+//             tmPose.drawKeypoints(pose.keypoints, minPartConfidence, ctx);
+//             tmPose.drawSkeleton(pose.keypoints, minPartConfidence, ctx);
+//         }
+//     }
+// }
