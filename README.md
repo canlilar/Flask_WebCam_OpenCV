@@ -1,5 +1,5 @@
 
-### To deploy locally
+### To deploy locally either in the GCP Shell or on own local laptop
 ```
 conda create -n flask-webcam-opencv-env python=3.8
 conda activate flask-webcam-opencv-env
